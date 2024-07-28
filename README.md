@@ -35,3 +35,8 @@ The bikeshare project analyzes bikeshare data from three US cities: Chicago, New
 - Change display of raw data from 5 lines to 3.
 - Remove June from available data set.
 
+Created Refactoring branch and made the following changes to bikeshare-script.py:
+- Moved months and days lists to the global scope as MONTHS and DAYS constants.
+- Created a list of allowed cities.
+- Replaced numpy with pandas methods in the trip_duration_stats_function.
+
