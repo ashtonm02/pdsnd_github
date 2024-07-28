@@ -27,9 +27,9 @@ def get_filters():
             print("Invalid input. Please select from Chicago, New York City or Washington.")
             
     # Get user input for month.
-    months = ['all', 'january', 'february', 'march', 'april', 'may', 'june']
+    months = ['all', 'january', 'february', 'march', 'april', 'may']
     while True:
-        month = input("Please select a month (all, january, february, march, april, may, june): ").strip().lower()
+        month = input("Please select a month (all, january, february, march, april, may): ").strip().lower()
         if month in months:
             break
         else:
@@ -58,7 +58,7 @@ def load_data(city, month, day):
         df - Pandas DataFrame containing city data filtered by month and day
     """
     
-    months = ['all', 'january', 'february', 'march', 'april', 'may', 'june']
+    months = ['all', 'january', 'february', 'march', 'april', 'may']
     days = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
     try:
