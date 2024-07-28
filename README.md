@@ -34,9 +34,13 @@ The bikeshare project analyzes bikeshare data from three US cities: Chicago, New
 - Change word explore to interrogate in first print message.
 - Change display of raw data from 5 lines to 3.
 - Remove June from available data set.
+- Added clarifying information in docstring for the load_data(city,month,day) function.
+- Added three new line comments in user_stats(df) function.
 
 Created Refactoring branch and made the following changes to bikeshare-script.py:
 - Moved months and days lists to the global scope as MONTHS and DAYS constants.
 - Created a list of allowed cities.
 - Replaced numpy with pandas methods in the trip_duration_stats_function.
+
+Merged Documentaiton branch into Master branch and then the Refactoring branch into the Master brnach. Resolved conflicts in order to successfully merge. 
 
