@@ -16,7 +16,7 @@ def get_filters():
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
     
-    print('Hello! Let\'s explore some US bikeshare data!')
+    print('Hello! Let\'s interrogate some US bikeshare data!')
     
     # Get user input for city.
     while True:
@@ -27,9 +27,9 @@ def get_filters():
             print("Invalid input. Please select from Chicago, New York City or Washington.")
             
     # Get user input for month.
-    months = ['all', 'january', 'february', 'march', 'april', 'may', 'june']
+    months = ['all', 'january', 'february', 'march', 'april', 'may']
     while True:
-        month = input("Please select a month (all, january, february, march, april, may, june): ").strip().lower()
+        month = input("Please select a month (all, january, february, march, april, may): ").strip().lower()
         if month in months:
             break
         else:
@@ -55,10 +55,10 @@ def load_data(city, month, day):
         (str) month - name of the month to filter by, or "all" to apply no month filter
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     Returns:
-        df - Pandas DataFrame containing city data filtered by month and day
+        DataFrame - Pandas DataFrame containing city data filtered by month and day if applicable, or none if the file is not found.
     """
     
-    months = ['all', 'january', 'february', 'march', 'april', 'may', 'june']
+    months = ['all', 'january', 'february', 'march', 'april', 'may']
     days = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
     try:
@@ -195,12 +195,15 @@ def user_stats(df):
 
     # Check if 'Birth Year' column exists in data before displaying statistics.
     if 'Birth Year' in df.columns:
+        # Display earliest birth year.
         earliest_birth_year = np.min(df['Birth Year'].dropna())
         print(f"Earliest birth year is: {earliest_birth_year}.")
-
+        
+        # Display most recent birth year.
         recent_birth_year = np.max(df['Birth Year'].dropna())
         print(f"Most recent birth year is: {recent_birth_year}.")
 
+        # Display common birth year.
         common_birth_year = df['Birth Year'].mode()[0]
         print(f"Most common birth year is: {common_birth_year}.")
     else:
@@ -228,11 +231,11 @@ def main():
             # Prompt to display raw data.
             start_index = 0
             while True:
-                display_raw = input("\nWould you like to see 5 lines of raw data? Enter yes or no.\n")
+                display_raw = input("\nWould you like to see 3 lines of raw data? Enter yes or no.\n")
                 if display_raw.lower() != 'yes':
                     break
-                print(df.iloc[start_index:start_index+5])
-                start_index += 5
+                print(df.iloc[start_index:start_index+3])
+                start_index += 3
                 if start_index >= len(df):
                     print("End of data.")
                     break
