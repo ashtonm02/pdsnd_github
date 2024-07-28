@@ -1,6 +1,5 @@
 import time
 import pandas as pd
-import numpy as np
 
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
@@ -32,7 +31,7 @@ def get_filters():
     # Get user input for month.
     while True:
         month = input("Please select a month (all, january, february, march, april, may, june): ").strip().lower()
-        if month in months:
+        if month in MONTHS:
             break
         else:
             print("Invalid input. Please select a month or select all for all months.")
@@ -40,7 +39,7 @@ def get_filters():
     # Get user input for day of the week.
     while True:
         day = input("Please select a day (all, monday, tuesday, wednesday, thursday, friday, saturday, sunday): ").strip().lower()
-        if day in days:
+        if day in DAYS:
             break
         else:
             print("Invalid input. Please select a day or select all for all days of the week.")
@@ -71,7 +70,7 @@ def load_data(city, month, day):
 
         # Filter by month.
         if month != 'all':
-            month_index = months.index(month)
+            month_index = MONTHS.index(month) + 1
             df = df[df['month'] == month_index]
 
         # Filter by day of the week.
@@ -157,11 +156,11 @@ def trip_duration_stats(df):
     start_time = time.time()
 
     # Display total travel time.
-    total_travel_time = np.sum(df['Trip Duration'])
+    total_travel_time = df['Trip Duration'].sum()
     print(f"Total travel time: {total_travel_time} seconds.")
 
     # Display mean travel time.
-    mean_travel_time = np.mean(df['Trip Duration'])
+    mean_travel_time = df['Trip Duration'].mean()
     print(f"Mean travel time: {mean_travel_time} seconds.") 
 
     print("\nThis took %s seconds." % (time.time() - start_time))
@@ -193,10 +192,10 @@ def user_stats(df):
 
     # Check if 'Birth Year' column exists in data before displaying statistics.
     if 'Birth Year' in df.columns:
-        earliest_birth_year = np.min(df['Birth Year'].dropna())
+        earliest_birth_year = df['Birth Year'].min()
         print(f"Earliest birth year is: {earliest_birth_year}.")
 
-        recent_birth_year = np.max(df['Birth Year'].dropna())
+        recent_birth_year = df['Birth Year'].max()
         print(f"Most recent birth year is: {recent_birth_year}.")
 
         common_birth_year = df['Birth Year'].mode()[0]
