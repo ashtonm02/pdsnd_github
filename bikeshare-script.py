@@ -228,11 +228,11 @@ def main():
             # Prompt to display raw data.
             start_index = 0
             while True:
-                display_raw = input("\nWould you like to see 5 lines of raw data? Enter yes or no.\n")
+                display_raw = input("\nWould you like to see 3 lines of raw data? Enter yes or no.\n")
                 if display_raw.lower() != 'yes':
                     break
-                print(df.iloc[start_index:start_index+5])
-                start_index += 5
+                print(df.iloc[start_index:start_index+3])
+                start_index += 3
                 if start_index >= len(df):
                     print("End of data.")
                     break
