@@ -8,6 +8,7 @@ CITY_DATA = { 'chicago': 'chicago.csv',
     
 MONTHS = ['all', 'january', 'february', 'march', 'april', 'may', 'june']
 DAYS = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+ALLOWED_CITIES = list(CITY_DATA.keys())
 
 def get_filters():
     """
@@ -23,13 +24,12 @@ def get_filters():
     # Get user input for city.
     while True:
         city = input("Please select a city (chicago, new york city, washington): ").strip().lower()
-        if city in CITY_DATA:
+        if city in ALLOWED_CITIES:
             break
         else:
             print("Invalid input. Please select from Chicago, New York City or Washington.")
             
     # Get user input for month.
-    months = ['all', 'january', 'february', 'march', 'april', 'may', 'june']
     while True:
         month = input("Please select a month (all, january, february, march, april, may, june): ").strip().lower()
         if month in months:
@@ -38,7 +38,6 @@ def get_filters():
             print("Invalid input. Please select a month or select all for all months.")
 
     # Get user input for day of the week.
-    days = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
     while True:
         day = input("Please select a day (all, monday, tuesday, wednesday, thursday, friday, saturday, sunday): ").strip().lower()
         if day in days:
@@ -72,8 +71,8 @@ def load_data(city, month, day):
 
         # Filter by month.
         if month != 'all':
-            month_name = months.index(month)
-            df = df[df['month'] == month_name]
+            month_index = months.index(month)
+            df = df[df['month'] == month_index]
 
         # Filter by day of the week.
         if day != 'all':
@@ -99,7 +98,7 @@ def time_stats(df):
     
     # Display the most common month.
     common_month = df['month'].mode()[0]
-    print(f"The most common month is: {common_month}.")
+    print(f"The most common month is: {MONTHS[common_month].title()}.")
 
     # Display the most common day of week.
     common_day_of_week = df['day_of_week'].mode()[0]
