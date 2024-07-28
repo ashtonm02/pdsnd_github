@@ -1,11 +1,13 @@
 import time
 import pandas as pd
-import numpy as np
 
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
-
+    
+MONTHS = ['all', 'january', 'february', 'march', 'april', 'may', 'june']
+DAYS = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+ALLOWED_CITIES = list(CITY_DATA.keys())
 
 def get_filters():
     """
@@ -21,25 +23,25 @@ def get_filters():
     # Get user input for city.
     while True:
         city = input("Please select a city (chicago, new york city, washington): ").strip().lower()
-        if city in CITY_DATA:
+        if city in ALLOWED_CITIES:
             break
         else:
             print("Invalid input. Please select from Chicago, New York City or Washington.")
             
     # Get user input for month.
-    months = ['all', 'january', 'february', 'march', 'april', 'may']
+    months = ['all', 'january', 'february', 'march', 'april', 'may', 'june']
+
     while True:
-        month = input("Please select a month (all, january, february, march, april, may): ").strip().lower()
-        if month in months:
+        month = input("Please select a month (all, january, february, march, april, may, june): ").strip().lower()
+        if month in MONTHS:
             break
         else:
             print("Invalid input. Please select a month or select all for all months.")
 
     # Get user input for day of the week.
-    days = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
     while True:
         day = input("Please select a day (all, monday, tuesday, wednesday, thursday, friday, saturday, sunday): ").strip().lower()
-        if day in days:
+        if day in DAYS:
             break
         else:
             print("Invalid input. Please select a day or select all for all days of the week.")
@@ -57,8 +59,8 @@ def load_data(city, month, day):
     Returns:
         DataFrame - Pandas DataFrame containing city data filtered by month and day if applicable, or none if the file is not found.
     """
-    
-    months = ['all', 'january', 'february', 'march', 'april', 'may']
+
+    months = ['all', 'january', 'february', 'march', 'april', 'may', 'june']
     days = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
     try:
@@ -73,8 +75,8 @@ def load_data(city, month, day):
 
         # Filter by month.
         if month != 'all':
-            month_name = months.index(month)
-            df = df[df['month'] == month_name]
+            month_index = MONTHS.index(month) + 1
+            df = df[df['month'] == month_index]
 
         # Filter by day of the week.
         if day != 'all':
@@ -100,7 +102,7 @@ def time_stats(df):
     
     # Display the most common month.
     common_month = df['month'].mode()[0]
-    print(f"The most common month is: {common_month}.")
+    print(f"The most common month is: {MONTHS[common_month].title()}.")
 
     # Display the most common day of week.
     common_day_of_week = df['day_of_week'].mode()[0]
@@ -159,11 +161,11 @@ def trip_duration_stats(df):
     start_time = time.time()
 
     # Display total travel time.
-    total_travel_time = np.sum(df['Trip Duration'])
+    total_travel_time = df['Trip Duration'].sum()
     print(f"Total travel time: {total_travel_time} seconds.")
 
     # Display mean travel time.
-    mean_travel_time = np.mean(df['Trip Duration'])
+    mean_travel_time = df['Trip Duration'].mean()
     print(f"Mean travel time: {mean_travel_time} seconds.") 
 
     print("\nThis took %s seconds." % (time.time() - start_time))
@@ -195,12 +197,11 @@ def user_stats(df):
 
     # Check if 'Birth Year' column exists in data before displaying statistics.
     if 'Birth Year' in df.columns:
-        # Display earliest birth year.
-        earliest_birth_year = np.min(df['Birth Year'].dropna())
+        earliest_birth_year = df['Birth Year'].min()
+
         print(f"Earliest birth year is: {earliest_birth_year}.")
-        
-        # Display most recent birth year.
-        recent_birth_year = np.max(df['Birth Year'].dropna())
+        recent_birth_year = df['Birth Year'].max()
+
         print(f"Most recent birth year is: {recent_birth_year}.")
 
         # Display common birth year.
