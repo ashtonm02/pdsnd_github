@@ -29,3 +29,9 @@ The bikeshare project analyzes bikeshare data from three US cities: Chicago, New
 - can.viewify
 - create-your-own-adventure
 
+### Project updates
+28 July 2024 - created Documentation branch and made the following changes to bikeshare-script.py:
+- Change word explore to interrogate in first print message.
+- Change display of raw data from 5 lines to 3.
+- Remove June from available data set.
+
