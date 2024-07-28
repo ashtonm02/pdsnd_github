@@ -16,7 +16,7 @@ def get_filters():
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
     
-    print('Hello! Let\'s explore some US bikeshare data!')
+    print('Hello! Let\'s interrogate some US bikeshare data!')
     
     # Get user input for city.
     while True:
